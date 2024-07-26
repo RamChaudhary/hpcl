@@ -11,6 +11,8 @@ import DriverDetails from "./DriverDetails";
 import TankTruckManagement from "./TankTruckManagement";
 import RecipeDetails from "./RecipeDetails";
 import LoadingInfo from "./LoadingInfo";
+import IndentDetails from "./IndentDetails"
+import BCU from "./BCU";
 
 const LoginHome=()=>{
 
@@ -93,6 +95,24 @@ const LoginHome=()=>{
         Recipe Details
       </NavLink>
     </NavItem>
+
+    <NavItem>
+      <NavLink
+            className={activeTab === '3' ? 'active' : ''}
+            onClick={() => toggle('3')}
+          >
+        Indent Details
+      </NavLink>
+    </NavItem>
+
+    <NavItem>
+      <NavLink
+            className={activeTab === '4' ? 'active' : ''}
+            onClick={() => toggle('4')}
+          >
+        BCU
+      </NavLink>
+    </NavItem>
   
      
       
@@ -108,6 +128,14 @@ const LoginHome=()=>{
         </TabPane>
         <TabPane tabId="2">
          <RecipeDetails/>
+        </TabPane>
+
+        <TabPane tabId="3">
+        <IndentDetails/>
+        </TabPane>
+
+        <TabPane tabId="4">
+         <BCU/>
         </TabPane>
         
       </TabContent>

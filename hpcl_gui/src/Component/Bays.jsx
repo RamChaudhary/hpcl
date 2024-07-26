@@ -4,118 +4,131 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 
 const Bays=()=>{
-
-    const truckData = [
-        { id: 1, bayNumber: '1',truckNumber: 'TRK001', product: 'ABC123', stockCode: 'BS VI MS-1', grossValume:'2990', grossTotal:'76658',valStatus:'closed' ,requiredOil:'100L', loaded:'50L',remaining:'50L'},
-        { id: 2, bayNumber: '2',truckNumber: 'TRK002', product: 'ABC123', stockCode: 'BS VI MS-2', grossValume:'2990', grossTotal:'76658',valStatus:'pending' ,requiredOil:'100L', loaded:'50L',remaining:'50L'},
-        { id: 3, bayNumber: '3',truckNumber: 'TRK003', product: 'ABC123', stockCode: 'BS VI MS-3', grossValume:'2990', grossTotal:'76658',valStatus:'completed' ,requiredOil:'100L', loaded:'50L',remaining:'50L'},
-        // Add more truck details as needed
-      ];
-
-    const [searchResults, setSearchResults] = useState([]);
-
-    const [search,setSearch]=useState('')
-
-    const onFieldChange=(event)=>
+  const truckData = [
     {
-       const val=event.target.value;
-        setSearch(val);
-        //alert("data--"+search)
-    };
-
-    const searchTruckDetails=(event)=>{
-        event.preventDefault();
-        const searchResult=event.target.search.value;
-        if(searchResult==='')
+      id: 1,
+      imageUrl: './images/truck.png',
+      truckNumber:'TK0000001',
+      oilLoadings: [
         {
-         toast.warning("Enter bay number ");
-         return false;
-        }
-        setSearch(searchResult)
-        const filteredResults = truckData.filter((truck) =>
-        truck.bayNumber.toLowerCase().includes(searchResult.toLowerCase())
-      );
-
-      setSearchResults(filteredResults);
-     // toast.info("data----"+JSON.stringify(searchResults));
-
-     
-
-    }
+          oilType: 'Diesel',
+          quantity: 5000,
+          location: 'Houston, TX',
+          status: 'Loading',
+        },
+        {
+          oilType: 'Petrol',
+          quantity: 3000,
+          location: 'Austin, TX',
+          status: 'In Transit',
+        },
+      ],
+    },
+    {
+      id: 2,
+      imageUrl: './images/truck.png',
+      truckNumber:'TK0000002',
       
-  const [truckInfo,setTruckInfo]=useState({
-    truckId:'',
-    driverName:'',
-    company:'',
-    address:'',
-    card:''
-})
+      oilLoadings: [
+        {
+          oilType: 'Kerosene',
+          quantity: 4000,
+          location: 'Dallas, TX',
+          status: 'Completed',
+        },
+      ],
+    },
+    {
+      id: 3,
+      imageUrl: './images/truck.png',
+      truckNumber:'TK0000002',
+      
+      oilLoadings: [
+        {
+          oilType: 'Kerosene',
+          quantity: 4000,
+          location: 'Dallas, TX',
+          status: 'Completed',
+        },
+        {
+          oilType: 'Kerosene',
+          quantity: 4000,
+          location: 'Dallas, TX',
+          status: 'Completed',
+        },
+        {
+          oilType: 'Kerosene',
+          quantity: 4000,
+          location: 'Dallas, TX',
+          status: 'Completed',
+        },
+      ],
+    },
+    {
+      id: 4,
+      imageUrl: './images/truck.png',
+      truckNumber:'TK0000002',
+      
+      oilLoadings: [
+        {
+          oilType: 'Kerosene',
+          quantity: 4000,
+          location: 'Dallas, TX',
+          status: 'Completed',
+        },
+      ],
+    },
+    // More trucks...
+  ];
+  
 
-const onTruckInfoChange=(event,fieldName)=>
-{
-    setTruckInfo({...truckInfo,[fieldName]:event.target.value})
-}
-
-const saveTruckInfoInfo=(event)=>{
-event.preventDefault();
-toast.info(JSON.stringify(truckInfo));
-
-}
     return(
-        <>
-        <Row>
-        <Col className="col-md-2 rounded-0"> </Col>
-        <Col className="col-md-8 rounded-0" style={{ padding: '0' , margin: '0' }}>
-          <strong>Truck Details</strong>
-          <Card className="shadow-lg">
-          <CardBody>
-          <Form onSubmit={searchTruckDetails}>
-          <Row className="mt-2">
-               
-                <Col className="col-md-10 rounded-0">
-                 
-                            <Label for="search">Bay Number</Label>
-                            <Input type="text" name="search" id="search" placeholder="Enter bay number"
-                            onChange={onFieldChange}
-                            value={search}
-                            />      
-                </Col>
-                <Col md="2" className="d-flex align-items-end rounded-0">
-                     <Button type="submit" color="primary" className="mt-2">Search</Button>
-                                                </Col>
-                
-            </Row>
-            </Form>
-            </CardBody>
-            </Card>
-           
-            </Col>
-            <Col className="col-md-2 rounded-0"> </Col>
-            </Row>
-
-            <Row>
-                    <Col>
-                    {searchResults.length > 0 ? (
-            searchResults.map((recipe) => (
-              <Card key={recipe.id} className="mb-3">
-                <CardBody>
-                  <strong>Truck Number: {recipe.truckNumber}</strong>
-                  <p>Product: {recipe.product}</p>
-                  <p>stock code: {recipe.stockCode}</p>
-                  <p>Required: {recipe.requiredOil}</p>
-                  <p>Loaded: {recipe.loaded}</p>
-                  <p>Remaining: {recipe.remaining}</p>
-                </CardBody>
-              </Card>
-            ))
-          ) : (
-            <p>No results found</p>
-          )}
-                    </Col>
-                </Row>
-
-
-        </>
+      <>
+     <div style={{ padding: '20px' }}>
+      
+      <table style={{ width: '100%', borderCollapse: 'collapse', border: '1px solid black' }}>
+        <thead>
+          <tr style={{ border: '1px solid black' }}>
+            <th>Bay Number</th>
+            <th>Truck</th>
+            <th>Oil Type</th>
+            <th>Quantity (liters)</th>
+            <th>Location</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          {truckData.map((truck) => (
+            <React.Fragment key={truck.id}>
+              {truck.oilLoadings.map((loading, index) => (
+                <tr key={index} style={{ border: '1px solid black' }}>
+                  {index === 0 && (
+                    <td rowSpan={truck.oilLoadings.length}>
+                     <strong><td>{truck.id}</td></strong>
+                    </td>
+                  )}
+                  {/* Only show the truck image and rowspan on the first row for each truck */}
+                  {index === 0 && (
+                    <td rowSpan={truck.oilLoadings.length}>
+                      <img src={truck.imageUrl} alt="Truck" style={{ width: '100px', height: '60px' }} />
+                      <br/>
+                      <p>{truck.truckNumber}</p>
+                    </td>
+                  )}
+                  
+                  <td>{loading.oilType}</td>
+                  <td>{loading.quantity}</td>
+                  <td>{loading.location}</td>
+                  <td>{loading.status}</td>
+                </tr>
+              ))}
+            </React.Fragment>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  
+      </>
     )
 }
 

@@ -64,7 +64,7 @@ public class TasController {
 	
 	@GetMapping("/getCustomer/{id}")
 	public Customer getCustomer(@PathVariable String id){
-		Optional<Customer> cus = customerRepo.findById(id);
+		Optional<Customer> cus = customerRepo.findById(Long.parseLong(id));
 		return cus.isEmpty() ? null : cus.get(); 
 	}
 	
